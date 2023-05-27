@@ -5,6 +5,7 @@ namespace wockgod;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerDeathEvent;
+use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\player\Player;
 
 class KDRListener implements Listener {
@@ -27,5 +28,15 @@ class KDRListener implements Listener {
         $entityDeaths = KDR::getInstance()->getConfig()->getNested("players.$entityName.deaths", 0);
         KDR::getInstance()->getConfig()->setNested("players.$entityName.deaths", $entityDeaths + 1);
         KDR::getInstance()->getConfig()->save();
+    }
+
+    public function onJoin(PlayerJoinEvent $event)
+    {
+        $playerName = $event->getPlayer()->getName();
+        if (!KDR::getInstance()->getConfig()->exists("players.$playerName")) {
+            KDR::getInstance()->getConfig()->setNested("players.$playerName.kills", 0);
+            KDR::getInstance()->getConfig()->setNested("players.$playerName.deaths", 0);
+            KDR::getInstance()->getConfig()->save();
+        }
     }
 }
