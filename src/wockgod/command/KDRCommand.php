@@ -23,6 +23,10 @@ class KDRCommand extends Command {
         $kills = KDR::getInstance()->getConfig()->getNested("players.$playerName.kills", 0);
         $deaths = KDR::getInstance()->getConfig()->getNested("players.$playerName.deaths", 0);
         $kdr = $deaths > 0 ? round($kills / $deaths, 2) : $kills;
-        $sender->sendMessage("§aYour kill/death ratio is $kdr (Kills: $kills, Deaths: $deaths).");
+        $message = KDR::getInstance()->getConfig()->getNested("messages.kdr", "§aYour kill/death ratio is {kdr} (Kills: {kills}, Deaths: {deaths}).");
+        $message = str_replace("{kdr}", $kdr, $message);
+        $message = str_replace("{kills}", $kills, $message);
+        $message = str_replace("{deaths}", $deaths, $message);
+        $sender->sendMessage($message);
     }
 }
