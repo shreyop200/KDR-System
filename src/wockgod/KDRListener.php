@@ -26,5 +26,6 @@ class KDRListener implements Listener {
         $entityName = $player->getName();
         $entityDeaths = KDR::getInstance()->getConfig()->getNested("players.$entityName.deaths", 0);
         KDR::getInstance()->getConfig()->setNested("players.$entityName.deaths", $entityDeaths + 1);
+        KDR::getInstance()->getConfig()->save();
     }
 }
