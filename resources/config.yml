@@ -2,6 +2,7 @@
 # Tags: {kdr] {kills} {deaths}
 messages:
   kdr: "§aYour kill/death ratio is {kdr} (Kills: {kills}, Deaths: {deaths})."
+  stats: "{player}'s Statistics: KDR: {kdr} (Kills: {kills}, Deaths: {deaths})."
 players:
   wockst4rz:
     kills: 0
