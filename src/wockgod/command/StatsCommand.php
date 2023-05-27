@@ -6,11 +6,12 @@ use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\player\Player;
 use wockgod\KDR;
+use jojoe77777\FormAPI\SimpleForm;
 
 class StatsCommand extends Command {
 
     public function __construct(){
-        parent::__construct("stats", "View another players K/D statistics", "/stats <player>");
+        parent::__construct("stats", "View another player's K/D statistics", "/stats <player>");
     }
 
     public function execute(CommandSender $sender, string $commandLabel, array $args) {
@@ -27,11 +28,21 @@ class StatsCommand extends Command {
         $kills = $playerStats["kills"];
         $deaths = $playerStats["deaths"];
         $kdr = $deaths > 0 ? round($kills / $deaths, 2) : $kills;
-        $message = KDR::getInstance()->getConfig()->getNested("messages.stats", "{player}'s Statistics: KDR: {kdr} (Kills: {kills}, Deaths: {deaths}).");
-        $message = str_replace("{player}", $playerName, $message);
-        $message = str_replace("{kdr}", $kdr, $message);
-        $message = str_replace("{kills}", $kills, $message);
-        $message = str_replace("{deaths}", $deaths, $message);
-        $sender->sendMessage($message);
+
+        $form = new SimpleForm(function (Player $player, ?int $data) use ($playerName, $kdr, $kills, $deaths) {
+            if ($data !== null) {
+                if ($data === 0) {
+                    // Add any additional actions here
+                }
+            }
+        });
+
+        $form->setTitle("$playerName's Statistics");
+        $form->setContent("Kill/Death Ratio: $kdr\nKills: $kills\nDeaths: $deaths");
+
+        // Add the "Confirmed" button
+        $form->addButton("Confirmed");
+
+        $sender->sendForm($form);
     }
 }
