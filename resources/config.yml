@@ -1,0 +1,5 @@
+# KDR Plugin Configuration File
+players:
+  wockst4rz:
+    kills: 0
+    deaths: 0
