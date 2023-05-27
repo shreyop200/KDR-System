@@ -1,9 +1,6 @@
-# KDR Plugin Configuration File
-# Tags: {kdr] {kills} {deaths}
-messages:
-  kdr: "§aYour kill/death ratio is {kdr} (Kills: {kills}, Deaths: {deaths})."
-  stats: "{player}'s Statistics: KDR: {kdr} (Kills: {kills}, Deaths: {deaths})."
+# KDR System Configuration File
+
 players:
-  wockst4rz:
+  ShreyanshOp27:
     kills: 0
     deaths: 0
